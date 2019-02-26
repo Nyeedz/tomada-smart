@@ -1,0 +1,97 @@
+<ion-grid style="height: 100%">
+  <ion-row justify-content-center align-items-center style="height: 100%">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ title }}</ion-card-title>
+      </ion-card-header>
+      <ion-row
+        justify-content-center
+        align-items-center
+        style="height: 100%"
+        *ngIf="register === true"
+      >
+        <a (click)="onTryLogin()">Click Here&nbsp;</a>to log in.
+      </ion-row>
+      <ion-card-content>
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">E-mail / Telefone </ion-label>
+              <ion-input
+                formControlName="unique"
+                [(ngModel)]="user_info.unique"
+                type="email"
+                name="unique"
+              ></ion-input>
+              <p
+                class="danger"
+                *ngIf="
+                  loginForm.get('unique').hasError('required') &&
+                  loginForm.get('unique').touched &&
+                  loginForm.get('unique').dirty
+                "
+              >
+                {{ getInputErrorMessage("unique") }}
+              </p>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input
+                formControlName="password"
+                type="password"
+                [(ngModel)]="user_info.password"
+                name="password"
+              ></ion-input>
+              <p
+                class="danger"
+                *ngIf="
+                  loginForm.get('password').hasError('required') &&
+                  loginForm.get('password').touched &&
+                  loginForm.get('password').dirty
+                "
+              >
+                {{ getInputErrorMessage("unique") }}
+              </p>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Repita sua senha</ion-label>
+              <ion-input
+                formControlName="confirmPassword"
+                type="password"
+                [(ngModel)]="user_info.confirm_password"
+                name="confirm-password"
+              ></ion-input>
+              <p
+                class="danger"
+                *ngIf="
+                  loginForm.get('confirmPassword').hasError('required') &&
+                  loginForm.get('confirmPassword').touched &&
+                  loginForm.get('confirmPassword').dirty
+                "
+              >
+                {{ getInputErrorMessage("confirmPassword") }}
+              </p>
+            </ion-item>
+
+            <ion-row
+              justify-content-center
+              align-items-center
+              style="height: 100%"
+              padding
+            >
+              <ion-button
+                ion-button
+                color="primary"
+                block
+                [disabled]="!loginForm.valid"
+                >Login</ion-button
+              >
+            </ion-row>
+          </ion-list>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
+</ion-grid>
